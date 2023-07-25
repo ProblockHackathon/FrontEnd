@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "jest --watchAll",
+    "deploy": "aws s3 sync ./dist s3://problockhackathon --profile=poqopo",
     "preview": "vite preview",
     "prepare": "husky install"
   },
