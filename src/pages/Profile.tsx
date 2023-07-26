@@ -1,19 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { pageChange } from 'src/redux/Slices/page';
-import ComplaintBlock from '@/components/ComplaintBlock';
 
-function Home() {
+function Profile() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(pageChange({ curPage: 'Complaint' }));
+    dispatch(pageChange({ curPage: 'Profile' }));
   }, []);
 
   return (
     <div className="w-full px-5">
-      <ComplaintBlock />
+      <p>Profile!</p>
     </div>
   );
 }
 
-export default Home;
+export default Profile;

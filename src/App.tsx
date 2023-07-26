@@ -3,6 +3,7 @@ import Community from './pages/Community';
 import DefaultLayout from './pages/DefaultLayout';
 import Home from './pages/Home';
 import WriteComplaint from './pages/WriteComplaint';
+import Profile from './pages/Profile';
 
 function App() {
   const element = useRoutes([
@@ -20,6 +21,10 @@ function App() {
         {
           path: '/Community',
           element: <Community />,
+        },
+        {
+          path: '/Profile',
+          element: <Profile />,
         },
       ],
     },
