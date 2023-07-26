@@ -3,8 +3,7 @@ import Header from '@/components/Header';
 
 function DefaultLayout() {
   return (
-    <div className="">
-      <p>Hello! Its ME</p>
+    <div>
       <Outlet />
       <Header />
     </div>

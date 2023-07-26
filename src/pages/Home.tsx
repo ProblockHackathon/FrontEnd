@@ -1,9 +1,9 @@
+import ComplaintBlock from '@/components/ComplaintBlock';
+
 function Home() {
   return (
-    <div className="flex justify-center">
-      <h1 className="font-bold text-2xl text-blue-900">
-        React(v18) , Typescript , Tailwind CSS , Vite
-      </h1>
+    <div className="w-full px-5">
+      <ComplaintBlock />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 import DefaultLayout from './pages/DefaultLayout';
 import Home from './pages/Home';
+import WriteComplaint from './pages/WriteComplaint';
 
 function App() {
   const element = useRoutes([
@@ -10,6 +11,10 @@ function App() {
         {
           path: '/',
           element: <Home />,
+        },
+        {
+          path: '/WriteComplaint',
+          element: <WriteComplaint />,
         },
       ],
     },
