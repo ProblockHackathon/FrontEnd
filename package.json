@@ -6,15 +6,18 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "jest --watchAll",
-    "deploy": "aws s3 sync ./dist s3://problockhackathon --profile=poqopo",
+    "deploy": "aws s3 sync ./dist s3://problocktest --profile=problock",
     "preview": "vite preview",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.10.1",
-    "react-router-dom": "^6.3.0"
+    "react-redux": "^8.1.1",
+    "react-router-dom": "^6.3.0",
+    "styled-components": "^6.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
