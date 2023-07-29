@@ -4,6 +4,7 @@ import DefaultLayout from './pages/DefaultLayout';
 import Home from './pages/Home';
 import WriteComplaint from './pages/WriteComplaint';
 import Profile from './pages/Profile';
+import ViewComplaint from './pages/ViewComplaint';
 
 function App() {
   const element = useRoutes([
@@ -25,6 +26,10 @@ function App() {
         {
           path: '/Profile',
           element: <Profile />,
+        },
+        {
+          path: '/ViewComplaint/:id',
+          element: <ViewComplaint />,
         },
       ],
     },

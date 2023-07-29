@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "jest --watchAll",
-    "deploy": "aws s3 sync ./dist s3://problocktest --profile=problock",
+    "deploy": "aws s3 sync ./dist s3://whatsthematter.online --profile=problock",
+    "invalidate": "aws cloudfront create-invalidation --profile=problock --distribution-id E2JFCRKCZWPS8G --paths /*",
     "preview": "vite preview",
     "prepare": "husky install"
   },
