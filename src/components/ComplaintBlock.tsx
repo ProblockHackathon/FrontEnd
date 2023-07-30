@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function ComplaintBlock() {
   return (
-    <div className="w-full h-[83px] bg-[#13BD7E] my-6 rounded-xl text-white">
+    <div className="w-full p-3 bg-[#13BD7E] rounded-xl text-white">
       <Link
         to="/WriteComplaint"
         className="w-full h-full flex place-content-between px-5"

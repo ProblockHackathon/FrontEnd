@@ -12,11 +12,11 @@ function Community() {
 
   return (
     <div className="w-full px-5 pb-[80px]">
-      <Block title="Best 글" />
+      <Block title="Best 글" category="Community" />
       <div className="my-4">
-        <Block title="신규 글" />
+        <Block title="신규 글" category="Community" />
       </div>
-      <Block title="여기 뭐적지" />
+      <Block title="여기 뭐적지" category="Community" />
     </div>
   );
 }
