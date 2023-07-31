@@ -24,7 +24,7 @@ function Header() {
         <Link to="/" className="w-1/3">
           <Item isSelected={curPage === 'Complaint'}>
             <AiFillHome size="25px" className="m-auto" />
-            <p className="mx-auto text-sm">Complaint</p>
+            <p className="mx-auto text-sm">Proposal</p>
           </Item>
         </Link>
         <Link to="/Profile" className="w-1/3">

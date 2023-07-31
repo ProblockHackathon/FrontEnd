@@ -11,7 +11,9 @@ function ComplaintBlock() {
       >
         <div className="flex">
           <TbPencilMinus size="40px" className="my-auto text-white" />
-          <p className="my-auto px-4 text-start text-xl">민원 작성하기</p>
+          <p className="my-auto px-4 text-start text-xl font-bold">
+            WRITE PROPOSAL
+          </p>
         </div>
         <IoIosArrowForward size="36px" className="my-auto" />
       </Link>

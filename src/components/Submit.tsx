@@ -13,7 +13,7 @@ function Submit({ onClick }: Submit) {
       onClick={onClick}
       type="button"
     >
-      제출하기
+      Submit
     </button>
   );
 }

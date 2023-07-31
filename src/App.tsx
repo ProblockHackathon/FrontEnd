@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import WriteComplaint from './pages/WriteComplaint';
 import Profile from './pages/Profile';
 import ViewComplaint from './pages/ViewComplaint';
+import ViewMore from './pages/ViewMore';
 
 function App() {
   const element = useRoutes([
@@ -30,6 +31,10 @@ function App() {
         {
           path: '/ViewComplaint/:id',
           element: <ViewComplaint />,
+        },
+        {
+          path: '/ViewMore/:subcategory',
+          element: <ViewMore />,
         },
       ],
     },

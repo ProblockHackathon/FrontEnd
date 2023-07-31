@@ -5,25 +5,27 @@ import api from '@/api';
 type Blanktype = {
   title: string;
   category: string;
+  query: string;
+  subcategory: any;
 };
 
 interface interfaceContent {
   complaint_id: number;
   profile: string;
-  name: string;
-  pros: number;
-  cons: number;
+  username: string;
+  total_pros: number;
+  total_cons: number;
   title: string;
   text: string;
 }
 
-function Block({ title, category }: Blanktype) {
+function Block({ title, category, subcategory, query }: Blanktype) {
   const [data, setData] = useState([]);
   function searchApi() {
     api
-      .get('/?size=2&page=1')
+      .get(query)
       .then(function (response) {
-        setData(response.data);
+        setData(response.data[subcategory]);
       })
       .catch(function (error) {
         console.log('실패');
@@ -38,7 +40,12 @@ function Block({ title, category }: Blanktype) {
     <div className="w-full rounded-[19px] border p-3">
       <div className="flex place-content-between py-2">
         <p className="text-[18px] font-bold">{title}</p>
-        <p className="text-[9px] my-auto align-bottom font-bold">더보기</p>
+        <Link
+          to={`/ViewMore/${subcategory}`}
+          className="text-[10px] my-auto align-bottom font-bold"
+        >
+          MORE
+        </Link>
       </div>
 
       {data.length > 0 ? (
@@ -51,7 +58,7 @@ function Block({ title, category }: Blanktype) {
                   className="w-[17px] h-[17px]"
                   alt="loading..."
                 />
-                <p className="text-[11px] font-bold px-1">{content.name}</p>
+                <p className="text-[11px] font-bold px-1">{content.username}</p>
               </div>
               <div className="flex">
                 <div className="flex w-[50px] bg-[#DDFFD1] rounded-lg p-1">
@@ -61,7 +68,7 @@ function Block({ title, category }: Blanktype) {
                     alt="loading..."
                   />
                   <p className="my-auto text-[9px] text-[#13BD7E]">
-                    {content.pros}
+                    {content.total_pros}
                   </p>
                 </div>
                 {category === 'Complaint' ? (
@@ -72,7 +79,7 @@ function Block({ title, category }: Blanktype) {
                       alt="loading..."
                     />
                     <p className="my-auto text-[9px] text-[#FF8080]">
-                      {content.cons}
+                      {content.total_cons}
                     </p>
                   </div>
                 ) : (
@@ -83,7 +90,7 @@ function Block({ title, category }: Blanktype) {
                       alt="loading..."
                     />
                     <p className="my-auto text-[9px] text-[#5E5E5E]">
-                      {content.cons}
+                      {content.total_cons}
                     </p>
                   </div>
                 )}
@@ -96,7 +103,7 @@ function Block({ title, category }: Blanktype) {
           </Link>
         ))
       ) : (
-        <div>데이터를 불러오는 중입니다</div>
+        <div>Fetching Data...</div>
       )}
     </div>
   );

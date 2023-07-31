@@ -11,12 +11,27 @@ function Community() {
   }, []);
 
   return (
-    <div className="w-full px-5 pb-[80px]">
-      <Block title="Best 글" category="Community" />
+    <div className="w-full px-5 pb-[80px] pt-4">
+      <Block
+        title="Best Posts"
+        category="Community"
+        subcategory="popular"
+        query="/?size=2&page=1"
+      />
       <div className="my-4">
-        <Block title="신규 글" category="Community" />
+        <Block
+          title="Recent Posts"
+          category="Community"
+          subcategory="recent"
+          query="/?size=2&page=1"
+        />
       </div>
-      <Block title="여기 뭐적지" category="Community" />
+      <Block
+        title="Popular Posts"
+        category="Community"
+        subcategory="popular"
+        query="/?size=2&page=1"
+      />
     </div>
   );
 }

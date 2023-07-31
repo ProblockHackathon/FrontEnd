@@ -3,17 +3,61 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '@/api';
 
+interface datatype {
+  complaint_id: number;
+  part: string;
+  status: string;
+  title: string;
+  text: string;
+  user_id: number;
+  username: string;
+  released_time: string;
+  views: number;
+  total_pros: number;
+  total_cons: number;
+  profile: string;
+}
+interface votetype {
+  complaint_id: number;
+  vote: string;
+  position: string;
+}
+
 function ViewComplaint() {
   const navigate = useNavigate();
   const location = useLocation();
   const id = location.pathname.split('/')[2];
+  const user = 3;
 
-  const [data2, setData] = useState([]);
+  const [data, setData] = useState<datatype>({
+    complaint_id: 1,
+    part: '',
+    status: '',
+    title: '',
+    text: '',
+    user_id: 1,
+    username: '',
+    released_time: '',
+    views: 1,
+    total_pros: 1,
+    total_cons: 1,
+    profile: '',
+  });
+  const [vote, setVote] = useState<votetype>({
+    complaint_id: 1,
+    vote: 'F',
+    position: '',
+  });
+
   function searchApi() {
     api
-      .get(`/${id}`)
+      .get(`/${id}?user_id=3`)
       .then(function (response) {
-        setData(response.data[0]);
+        setData(response.data.complaint[0]);
+        const tempData = vote;
+        tempData.vote = response.data.vote;
+        tempData.position = response.data.position;
+        setVote(tempData);
       })
       .catch(function (error) {
         console.log('실패');
@@ -21,18 +65,14 @@ function ViewComplaint() {
   }
   function delComp() {
     api
-      .delete(`/${id}`)
+      .delete(`/${id}?user_id=3`)
       .then(function (response) {
-        if (response.data.code === 500) {
-          console.log('성공');
-          navigate('/');
-        }
+        navigate('/');
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-
   function addViews() {
     api
       .post(`api/${id}/views`)
@@ -48,11 +88,9 @@ function ViewComplaint() {
 
   function addPros() {
     api
-      .post(`api/${id}/total_pros`)
+      .post(`api/${id}/total_pros?user_id=3`)
       .then(function (response) {
-        if (response.data.code === 500) {
-          console.log('성공');
-        }
+        navigate('/');
       })
       .catch(function (error) {
         console.log(error);
@@ -61,11 +99,9 @@ function ViewComplaint() {
 
   function addCons() {
     api
-      .post(`api/${id}/total_cons`)
+      .post(`api/${id}/total_cons?user_id=3`)
       .then(function (response) {
-        if (response.data.code === 500) {
-          console.log('성공');
-        }
+        navigate('/');
       })
       .catch(function (error) {
         console.log(error);
@@ -73,32 +109,15 @@ function ViewComplaint() {
   }
 
   function voteAgatin() {
-    window.alert('Already Vote!');
+    window.alert('You already voted');
   }
   useEffect(() => {
     searchApi();
     addViews();
   }, []);
 
-  const data = {
-    id: 1,
-    part: '전기 서비스	',
-    status: '접수',
-    title: '전력 공급 장애',
-    text: '오늘 아침부터 전기 공급이 멈췄습니다. 빨리 해결해주세요.',
-    user: 0,
-    name: 'Paul',
-    date: '2023-07-27 12:00:00',
-    view: 150,
-    pros: 30,
-    cons: 30,
-    profile: '/avatar.png',
-    vote: true,
-    whichvote: false,
-  };
-
   return (
-    <div className="w-full">
+    <div className="w-full pb-20">
       <div className="p-5">
         <div className="flex place-content-between">
           <button
@@ -109,37 +128,48 @@ function ViewComplaint() {
           >
             <IoIosArrowBack size="24px" className="text-[#8B8B8B]" />
           </button>
-          <button onClick={delComp} type="button" className="text-[13px]">
-            삭제
-          </button>
-        </div>
-
-        <div className="flex pt-5">
-          <img
-            src={data.profile}
-            className="w-[30px] h-[30px]"
-            alt="loading..."
-          />
-          <p className="text-[20px] font-bold px-1">{data.name}</p>
-          {data.user === 0 ? (
-            <span className="text-[20px] font-bold px-1">(Me)</span>
+          {user === data.user_id ? (
+            <button onClick={delComp} type="button" className="text-[13px]">
+              Delete
+            </button>
           ) : (
             <div />
           )}
         </div>
+
+        <div className="flex place-content-between pt-5">
+          <div className="flex">
+            <img
+              src={data.profile}
+              className="w-[45px] h-[45px]"
+              alt="loading..."
+            />
+            <div className="px-2">
+              <span className="text-[20px] font-bold">{data.username}</span>
+              {user === data.user_id ? (
+                <span className="text-[20px] font-bold px-1">(Me)</span>
+              ) : (
+                <div />
+              )}
+              <p className="text-[13px] text-[#A4A4A4]">
+                {data.released_time.substring(0, 10)}
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="w-full h-[56px] mt-5 mb-4 ">
-          <div className="bg-[#EFEFEF] w-full h-full text-black rounded-xl px-5 pt-3">
+          <div className="bg-[#D5FFC1] bg-opacity-30 w-full h-full text-black rounded-xl px-5 pt-3 border-2 font-bold">
             {data.title}
           </div>
         </div>
         <div className="w-full h-[240px] mt-5 mb-4 ">
-          <div className="bg-[#EFEFEF] w-full h-full text-black rounded-xl px-5 pt-3">
+          <div className="bg-[#D5FFC1] bg-opacity-30 w-full h-full text-black rounded-xl px-5 pt-3 border-2 ">
             {data.text}
           </div>
         </div>
-        {data.vote ? (
+        {vote.vote === 'T' ? (
           <div className="flex place-content-evenly">
-            {data.whichvote ? (
+            {vote.position === 'G' ? (
               <button
                 onClick={voteAgatin}
                 type="button"
@@ -151,7 +181,7 @@ function ViewComplaint() {
                   alt="loading..."
                 />
                 <p className="text-center text-[15px] text-[#13BD7E] pt-[6px]">
-                  {data.pros}
+                  {data.total_pros}
                 </p>
               </button>
             ) : (
@@ -166,11 +196,11 @@ function ViewComplaint() {
                   alt="loading..."
                 />
                 <p className="text-center text-[15px] text-[#13BD7E] pt-[6px]">
-                  {data.pros}
+                  {data.total_pros}
                 </p>
               </button>
             )}
-            {data.whichvote ? (
+            {vote.position === 'G' ? (
               <button
                 onClick={voteAgatin}
                 type="button"
@@ -182,7 +212,7 @@ function ViewComplaint() {
                   alt="loading..."
                 />
                 <p className="text-center text-[15px] text-[#FF8080] pt-[6px]">
-                  {data.cons}
+                  {data.total_cons}
                 </p>
               </button>
             ) : (
@@ -197,7 +227,7 @@ function ViewComplaint() {
                   alt="loading..."
                 />
                 <p className="text-center text-[15px] text-[#FF8080] pt-[6px]">
-                  {data.cons}
+                  {data.total_cons}
                 </p>
               </button>
             )}
@@ -215,7 +245,7 @@ function ViewComplaint() {
                 alt="loading..."
               />
               <p className="text-center text-[15px] text-[#13BD7E] pt-[6px]">
-                {data.pros}
+                {data.total_pros}
               </p>
             </button>
             <button
@@ -229,20 +259,18 @@ function ViewComplaint() {
                 alt="loading..."
               />
               <p className="text-center text-[15px] text-[#FF8080] pt-[6px]">
-                {data.cons}
+                {data.total_cons}
               </p>
             </button>
           </div>
         )}
 
-        {data.user === 1 ? (
+        {user === data.user_id ? (
           <div />
         ) : (
           <div className="mx-auto text-center text-[12px] py-7">
-            <p className="font-bold">버튼을 눌러 당신의 의견을 말해주세요!</p>
-            <p className="text-[#7C7C7C]">
-              한번 투표하면 다시 되돌릴 수 없습니다
-            </p>
+            <p className="font-bold">Press button to show your opinion</p>
+            <p className="text-[#7C7C7C]">You are given only one vote.</p>
           </div>
         )}
       </div>

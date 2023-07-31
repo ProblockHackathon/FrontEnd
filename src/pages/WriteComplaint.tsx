@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Select from 'react-select';
 import Blank from '@/components/Blank';
-import ComplaintBlock from '@/components/ComplaintBlock';
 import Submit from '@/components/Submit';
 import api from '@/api';
+
+type SelectOptionType = { label: string; value: string };
 
 function WriteComplaint() {
   const navigate = useNavigate();
@@ -13,23 +14,27 @@ function WriteComplaint() {
   const [text, setText] = useState('');
   const [part, setPart] = useState({ value: '', label: '' });
   const options = [
-    { value: '대인관계', label: '대인관계' },
-    { value: '수도', label: '수도' },
-    { value: '번역', label: '번역' },
+    { value: 'Welfare', label: 'Welfare' },
+    { value: 'Culture', label: 'Culture' },
+    { value: 'Language', label: 'Language' },
+    { value: 'Relationship', label: 'Relationship' },
+    { value: 'Others', label: 'Others' },
   ];
+  const handleSelectionChange = (option: SelectOptionType | null) => {
+    if (option) {
+      setPart(option);
+    }
+  };
 
   function postapi() {
     api
-      .post('/add', {
+      .post('/add?user_id=3', {
         part: part.value,
         title,
         text,
-        user_id: 1,
       })
       .then(function (response) {
-        if (response.data.code === 500) {
-          console.log('성공');
-        }
+        navigate('/');
       })
       .catch(function (error) {
         console.log(error);
@@ -51,18 +56,18 @@ function WriteComplaint() {
         >
           <IoIosArrowBack size="24px" className="text-[#8B8B8B]" />
         </button>
-        <p className="text-2xl font-bold">민원 작성 </p>
+        <p className="text-2xl font-bold">WRITE PROPOSAL </p>
         <div className="w-full h-[56px] mt-5 mb-4 ">
-          <Blank ph="제목을 입력해주세요" setText={setTitle} />
+          <Blank ph="Enter a title" setText={setTitle} />
         </div>
         <div className="w-full h-[240px] mt-5 mb-4 ">
-          <Blank ph="내용을 입력해주세요" setText={setText} />
+          <Blank ph="Enter text" setText={setText} />
         </div>
 
         <Select
           className="item"
-          placeholder="카테고리를 정해주세요"
-          onChange={() => setPart}
+          placeholder="Choose a category"
+          onChange={handleSelectionChange}
           options={options}
         />
       </div>
@@ -71,6 +76,17 @@ function WriteComplaint() {
         <div className="p-5">
           <Submit onClick={() => onClick} />
         </div>
+      </div>
+      <div className="flex items-center px-5">
+        <input
+          id="link-checkbox"
+          type="checkbox"
+          value=""
+          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        />
+        <span className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          I request protection of diversity.
+        </span>
       </div>
     </div>
   );

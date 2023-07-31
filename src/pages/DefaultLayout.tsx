@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 
 function DefaultLayout() {
   return (
-    <div>
+    <div className="font-sans">
       <Outlet />
       <Header />
     </div>
