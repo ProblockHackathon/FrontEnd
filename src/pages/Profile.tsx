@@ -19,9 +19,7 @@ function Profile() {
           alt="profile"
         />
         <div>
-          <h3 className="text-[24px] text-[#13BD7E] font-bold">
-            Christopher Lucas
-          </h3>
+          <h3 className="text-[24px] text-[#13BD7E] font-bold">ISEOULU</h3>
           <p className="text-[16px] font-semibold">Australia</p>
           <p className="text-[16px] text-[#595959]">In Korea Since 2011</p>
         </div>

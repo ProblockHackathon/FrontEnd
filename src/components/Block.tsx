@@ -25,6 +25,8 @@ function Block({ title, category, subcategory, query }: Blanktype) {
     api
       .get(query)
       .then(function (response) {
+        console.log('hello');
+        console.log(response);
         setData(response.data[subcategory]);
       })
       .catch(function (error) {

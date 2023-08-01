@@ -17,18 +17,18 @@ function Home() {
       <ComplaintBlock />
       <div>
         <Block
+          title="PROTECTED PROPOSALS"
+          category="Complaint"
+          query="/"
+          subcategory="protected"
+        />
+        <Block
           title="POPULAR PROPOSALS"
           category="Complaint"
           query="/"
           subcategory="popular"
         />
       </div>
-      <Block
-        title="RECENT PROPOSALS"
-        category="Complaint"
-        query="/"
-        subcategory="recent"
-      />
     </div>
   );
 }

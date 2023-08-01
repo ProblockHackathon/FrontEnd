@@ -20,14 +20,14 @@ function Community() {
       />
       <div className="my-4">
         <Block
-          title="Recent Posts"
+          title="Tips"
           category="Community"
-          subcategory="recent"
+          subcategory="protected"
           query="/?size=2&page=1"
         />
       </div>
       <Block
-        title="Popular Posts"
+        title="Recent Posts"
         category="Community"
         subcategory="popular"
         query="/?size=2&page=1"
